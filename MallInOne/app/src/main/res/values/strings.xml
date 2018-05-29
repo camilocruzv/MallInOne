@@ -3,4 +3,5 @@
     <string name="tab_text_1">Centros Comerciales</string>
     <string name="tab_text_2">Búsquedas</string>
     <string name="tab_text_3">Mapa</string>
+    <string name="home">Home</string>
 </resources>

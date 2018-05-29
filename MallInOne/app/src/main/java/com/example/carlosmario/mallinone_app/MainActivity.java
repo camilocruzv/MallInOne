@@ -9,11 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
+import com.example.carlosmario.mallinone_app.fragments.Tab1Malls;
+import com.example.carlosmario.mallinone_app.fragments.Tab2Searchs;
+import com.example.carlosmario.mallinone_app.fragments.Tab3Map;
 
 public class MainActivity extends AppCompatActivity {
 

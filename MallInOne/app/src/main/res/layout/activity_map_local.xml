@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Tab3Map">
+    tools:context=".MapLocalActivity">
 
     <WebView
         android:id="@+id/mapWizeWeb"
@@ -12,6 +12,7 @@
         android:layout_height="506dp"
         tools:layout_editor_absoluteX="7dp"
         tools:layout_editor_absoluteY="2dp"
-        tools:ignore="MissingConstraints"></WebView>
+        tools:ignore="MissingConstraints">
+    </WebView>
 
 </android.support.constraint.ConstraintLayout>

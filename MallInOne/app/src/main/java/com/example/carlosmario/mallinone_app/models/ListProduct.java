@@ -1,10 +1,10 @@
-package com.example.carlosmario.mallinone_app;
+package com.example.carlosmario.mallinone_app.models;
 
-public class ListMall {
+public class ListProduct {
 
     private String name;
 
-    public ListMall(String name) {
+    public ListProduct(String name) {
         this.name = name;
     }
 

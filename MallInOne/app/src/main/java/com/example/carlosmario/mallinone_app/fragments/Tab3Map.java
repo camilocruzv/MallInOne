@@ -1,4 +1,4 @@
-package com.example.carlosmario.mallinone_app;
+package com.example.carlosmario.mallinone_app.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.carlosmario.mallinone_app.R;
 
 public class Tab3Map extends Fragment {
 
@@ -32,7 +34,7 @@ public class Tab3Map extends Fragment {
     private void mapa(String mapa_url, View rootView) {
         String url = mapa_url;
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading data...");
+        progressDialog.setMessage("Cargando información...");
         progressDialog.show();
         WebView view = (WebView) rootView.findViewById(R.id.mapWizeWeb);
         view.getSettings().setJavaScriptEnabled(true);

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".Tab1Malls">
+    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+    tools:context=".fragments.Tab1Malls">
 
     <ImageView
         android:id="@+id/imageView"
@@ -15,8 +16,7 @@
         tools:ignore="MissingConstraints"
         android:layout_marginTop="15dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
+        tools:layout_editor_absoluteY="16dp"/>
 
 
     <android.support.v7.widget.RecyclerView
@@ -25,6 +25,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="170dp"
         android:clipToPadding="false"
-        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

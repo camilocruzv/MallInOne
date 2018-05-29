@@ -2,13 +2,15 @@ package com.example.carlosmario.mallinone_app;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,8 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.carlosmario.mallinone_app.adapters.MyLocalAdapter;
-import com.example.carlosmario.mallinone_app.models.ListLocal;
+import com.example.carlosmario.mallinone_app.adapters.MyProductAdapter;
+import com.example.carlosmario.mallinone_app.models.ListProduct;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -30,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocalsActivity extends AppCompatActivity  {
+public class ProductsActivity extends AppCompatActivity {
 
     private static final String URL_DATA = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
     //http://mallinone.tk/api/v1/local/?format=json";
@@ -38,20 +40,20 @@ public class LocalsActivity extends AppCompatActivity  {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-    private List<ListLocal> listLocals;
+    private List<ListProduct> listProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locals);
+        setContentView(R.layout.activity_products);
 
         getIncomingIntent();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewLocal);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewProduct);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listLocals = new ArrayList<>();
+        listProducts = new ArrayList<>();
 
         loadRecyclerViewData();
     }
@@ -78,31 +80,23 @@ public class LocalsActivity extends AppCompatActivity  {
     }
 
     private void getIncomingIntent() {
-
-        if(getIntent().hasExtra("LocalNameProduct") && getIntent().hasExtra("LocalImageProduct")) {
-            String name = getIntent().getStringExtra("LocalNameProduct");
-            String localImage = getIntent().getStringExtra("LocalImageProduct");
+        if(getIntent().hasExtra("LocalName") && getIntent().hasExtra("LocalImage")) {
+            String name = getIntent().getStringExtra("LocalName");
+            String localImage = getIntent().getStringExtra("LocalImage");
 
             setNameAndImage(name, localImage);
         }
-
-        if(getIntent().hasExtra("MallName") && getIntent().hasExtra("MallImage")) {
-            String name = getIntent().getStringExtra("MallName");
-            String mallImage = getIntent().getStringExtra("MallImage");
-
-            setNameAndImage(name, mallImage);
-        }
     }
 
-    private void setNameAndImage(String mallName, String mallImage) {
-        TextView name = findViewById(R.id.mallName);
-        name.setText(mallName);
+    private void setNameAndImage(String localName, String localImage) {
+        TextView name = findViewById(R.id.localName);
+        name.setText(localName);
 
-        ImageView imageViewMall = findViewById(R.id.mallImageLocal);
+        ImageView imageViewLocal = findViewById(R.id.localProductImage);
 
         Picasso.with(this)
-                .load(mallImage)
-                .into(imageViewMall);
+                .load(localImage)
+                .into(imageViewLocal);
     }
 
     private void loadRecyclerViewData() {
@@ -123,14 +117,26 @@ public class LocalsActivity extends AppCompatActivity  {
 
                             for(int i = 0; i < array.length(); i++) {
                                 JSONObject o = array.getJSONObject(i);
-                                ListLocal local = new ListLocal(
-                                        o.getString("tags"),//"name")
-                                        "https://defcrpc6rdpo8.cloudfront.net/madrid/up/2008/02/_vaguada-verde-centrada.jpg"
+                                ListProduct product = new ListProduct(
+                                        o.getString("tags") //"name")
                                 );
-                                listLocals.add(local);
+                                listProducts.add(product);
                             }
 
-                            adapter = new MyLocalAdapter(getApplicationContext(), listLocals);
+                            Button map = (Button) findViewById(R.id.buttonMap);
+                            map.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent (v.getContext(), MapLocalActivity.class);
+                                    intent.putExtra("URL", "https://maps.mapwize.io/#/p/parque_comercial_el_tesoro/bosi");
+                                    startActivityForResult(intent, 0);
+                                }
+                            });
+
+                            String name = getIntent().getStringExtra("LocalName");
+                            String localImage = getIntent().getStringExtra("LocalImage");
+
+                            adapter = new MyProductAdapter(listProducts, getApplicationContext(), name, localImage);
                             recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
                             recyclerView.setAdapter(adapter);
 

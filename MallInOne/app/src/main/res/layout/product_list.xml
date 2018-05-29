@@ -6,9 +6,7 @@
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
     cardview:cardCornerRadius="4dp"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:clickable="true"
-    android:id="@+id/mall">
+    android:id="@+id/product">
 
     <LinearLayout
         android:padding="16dp"
@@ -17,15 +15,15 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/mallImage"
+            android:id="@+id/productImage"
             android:layout_width="70dp"
             android:layout_height="90dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center_horizontal"
-            android:background="@color/colorAccent" />
+            android:src="@drawable/product_icon"/>
 
         <TextView
-            android:id="@+id/txtName"
+            android:id="@+id/txtNameProduct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

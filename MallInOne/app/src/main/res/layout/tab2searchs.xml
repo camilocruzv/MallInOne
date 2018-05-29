@@ -8,25 +8,14 @@
     android:paddingRight="16dp"
     android:paddingLeft="16dp"
     android:paddingBottom="16dp"
-    tools:context=".Tab2Searchs">
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="127dp"
-        android:src="@drawable/logo_mallinone"
-        tools:ignore="MissingConstraints"
-        android:layout_marginTop="15dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp" />
+    tools:context=".fragments.Tab2Searchs">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:text="Buscar Local"
         android:textSize="24sp"
@@ -36,32 +25,60 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="210dp" />
 
-    <EditText
-        android:layout_width="140dp"
-        android:layout_height="52dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="159dp"
-        android:layout_marginStart="98dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="282dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="85dp" />
-
-    <ImageView
-        android:id="@+id/logoSearchs"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
+    <View
+        android:id="@+id/view1"
         android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_marginBottom="159dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="70dp"
-        android:layout_alignParentBottom="true"
-        app:srcCompat="@android:drawable/ic_search_category_default"
-        tools:ignore="UnknownId"
-        android:layout_marginRight="70dp"
-        android:layout_alignParentRight="true" />
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"/>
+
+    <SearchView
+        android:id="@+id/searchView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="43dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+    </SearchView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:gravity="center"
+        android:text="Buscar Producto"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="210dp" />
+
+    <View
+        android:id="@+id/viewProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:layout_marginTop="195dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"/>
+
+    <SearchView
+        android:id="@+id/searchViewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="193dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp">
+    </SearchView>
 
 </RelativeLayout>
