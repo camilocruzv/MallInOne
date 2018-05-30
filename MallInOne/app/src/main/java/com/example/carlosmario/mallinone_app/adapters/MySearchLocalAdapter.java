@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.carlosmario.mallinone_app.LocalInfoActivity;
 import com.example.carlosmario.mallinone_app.ProductsActivity;
 import com.example.carlosmario.mallinone_app.R;
 import com.example.carlosmario.mallinone_app.models.ListLocal;
@@ -18,29 +19,29 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MyLocalAdapter extends RecyclerView.Adapter<MyLocalAdapter.ViewHolderLocal> {
+public class MySearchLocalAdapter extends RecyclerView.Adapter<MySearchLocalAdapter.ViewHolderSearchLocal> {
 
     private List<ListLocal> listLocals;
     private Context context;
 
-    public MyLocalAdapter(Context context, List<ListLocal> listLocals) {
+    public MySearchLocalAdapter(Context context, List<ListLocal> listLocals) {
         this.listLocals = listLocals;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ViewHolderLocal onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderSearchLocal onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.local_list, parent, false);
+                .inflate(R.layout.search_local_list, parent, false);
 
-        ViewHolderLocal viewHolder = new ViewHolderLocal(v);
+        ViewHolderSearchLocal viewHolder = new ViewHolderSearchLocal(v);
 
         return viewHolder; //new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderLocal holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderSearchLocal holder, int position) {
         final ListLocal listLocal = listLocals.get(position);
 
         holder.localName.setText(listLocal.getName());
@@ -53,18 +54,18 @@ public class MyLocalAdapter extends RecyclerView.Adapter<MyLocalAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 //Toast.makeText(context, "You clicked " + listLocal.getName() + " " + context, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, ProductsActivity.class);
-                intent.putExtra("pk", listLocal.getId());
+                Intent intent = new Intent(context, LocalInfoActivity.class);//ProductsActivity.class);
+                intent.putExtra("LocalId", listLocal.getId());
                 intent.putExtra("LocalName", listLocal.getName());
                 intent.putExtra("LocalImage", listLocal.getimageLocal());
                 intent.putExtra("MapLocal", listLocal.getMapLocal());
+                intent.putExtra("MallId", listLocal.getIdMall());
+                intent.putExtra("highlighted", listLocal.getHighlighted());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -72,18 +73,18 @@ public class MyLocalAdapter extends RecyclerView.Adapter<MyLocalAdapter.ViewHold
     }
 
 
-    public class ViewHolderLocal extends RecyclerView.ViewHolder {
+    public class ViewHolderSearchLocal extends RecyclerView.ViewHolder {
 
         public TextView localName;
         CardView local;
         ImageView localImage;
 
-        public ViewHolderLocal(View itemView) {
+        public ViewHolderSearchLocal(View itemView) {
             super(itemView);
 
-            localName = (TextView) itemView.findViewById(R.id.txtNameLocal);
-            local = (CardView) itemView.findViewById(R.id.local);
-            localImage = (ImageView) itemView.findViewById(R.id.localImage);
+            localName = (TextView) itemView.findViewById(R.id.txtNameSearchLocal);
+            local = (CardView) itemView.findViewById(R.id.searchLocalCard);
+            localImage = (ImageView) itemView.findViewById(R.id.searchLocalImage);
 
             //mall.setOnClickListener(new View.OnClickListener() {
             //@Override

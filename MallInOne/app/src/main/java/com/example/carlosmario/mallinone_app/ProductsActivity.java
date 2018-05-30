@@ -34,7 +34,7 @@ import java.util.List;
 
 public class ProductsActivity extends AppCompatActivity {
 
-    private static final String URL_DATA = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
+    private static final String URL_DATA = "http://mallinone.tk/api/product/?format=json";;//"https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
     //http://mallinone.tk/api/v1/local/?format=json";
 
     private RecyclerView recyclerView;
@@ -49,13 +49,15 @@ public class ProductsActivity extends AppCompatActivity {
 
         getIncomingIntent();
 
+        String mapLocal = getIntent().getStringExtra("MapLocal");
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewProduct);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         listProducts = new ArrayList<>();
 
-        loadRecyclerViewData();
+        loadRecyclerViewData(mapLocal);
     }
 
     @Override
@@ -99,11 +101,13 @@ public class ProductsActivity extends AppCompatActivity {
                 .into(imageViewLocal);
     }
 
-    private void loadRecyclerViewData() {
+    private void loadRecyclerViewData(final String mapLocal) {
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando información...");
         progressDialog.show();
+
+        final String id = getIntent().getStringExtra("pk");
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 URL_DATA,
@@ -113,14 +117,29 @@ public class ProductsActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            JSONArray array = jsonObject.getJSONArray("hits");//"results");
+                            JSONArray array = jsonObject.getJSONArray("results"); //"hits");//"results");
 
                             for(int i = 0; i < array.length(); i++) {
                                 JSONObject o = array.getJSONObject(i);
-                                ListProduct product = new ListProduct(
-                                        o.getString("tags") //"name")
-                                );
-                                listProducts.add(product);
+                                //if(o.getString("name").contains("S")){//equals("El Tesoro")) {
+                                if(id.equals(o.getString("local"))) {
+                                    ListProduct mall = new ListProduct(
+                                            o.getString("pk"),
+                                            o.getString("local"), //"tags"),//"name")
+                                            o.getString("name"),
+                                            //"https://defcrpc6rdpo8.cloudfront.net/madrid/up/2008/02/_vaguada-verde-centrada.jpg"
+                                            o.getString("image"),
+                                            o.getString("price"),
+                                            o.getString("characteristics")
+                                    );
+
+                                    //if(o.getString("name").contains("S")){//equals("El Tesoro")) {
+                                    listProducts.add(mall);
+                                    //} else {
+                                    //Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                                    //i++;
+                                    //}
+                                }
                             }
 
                             Button map = (Button) findViewById(R.id.buttonMap);
@@ -128,7 +147,7 @@ public class ProductsActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent (v.getContext(), MapLocalActivity.class);
-                                    intent.putExtra("URL", "https://maps.mapwize.io/#/p/parque_comercial_el_tesoro/bosi");
+                                    intent.putExtra("URL", mapLocal);//"https://maps.mapwize.io/#/p/parque_comercial_el_tesoro/bosi");
                                     startActivityForResult(intent, 0);
                                 }
                             });

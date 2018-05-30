@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.carlosmario.mallinone_app.adapters.MyLocalAdapter;
+import com.example.carlosmario.mallinone_app.adapters.MySearchLocalAdapter;
 import com.example.carlosmario.mallinone_app.models.ListLocal;
 import com.squareup.picasso.Picasso;
 
@@ -32,9 +33,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocalsActivity extends AppCompatActivity  {
+public class SearchLocalActivity extends AppCompatActivity  {
 
-    private static final String URL_DATA = "http://mallinone.tk/api/local/?format=json";
+    //private static final String URL_DATA = "http://mallinone.tk/api/local/?format=json";
     //"https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
     //http://mallinone.tk/api/v1/local/?format=json";
 
@@ -46,18 +47,20 @@ public class LocalsActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locals);
+        setContentView(R.layout.activity_search_local);
 
-        getIncomingIntent();
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewLocal);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSearchLocal);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         listLocals = new ArrayList<>();
 
-        String id = getIntent().getStringExtra("MallId");
-        loadRecyclerViewData(id);
+        try {
+            String url = getIncomingIntent();
+            loadRecyclerViewData(url);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -81,43 +84,20 @@ public class LocalsActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getIncomingIntent() {
-
-        if(getIntent().hasExtra("LocalNameProduct") && getIntent().hasExtra("LocalImageProduct")) {
-            String name = getIntent().getStringExtra("LocalNameProduct");
-            String localImage = getIntent().getStringExtra("LocalImageProduct");
-
-            setNameAndImage(name, localImage);
-        }
-
-        if(getIntent().hasExtra("MallName") && getIntent().hasExtra("MallImage")) {
-            String name = getIntent().getStringExtra("MallName");
-            String mallImage = getIntent().getStringExtra("MallImage");
-
-            setNameAndImage(name, mallImage);
-        }
+    private String getIncomingIntent() throws UnsupportedEncodingException {
+        String name = getIntent().getStringExtra("LocalName");
+        String url = "http://mallinone.tk/api/local/?q=" + URLEncoder.encode(name, "UTF-8");
+        return url;
     }
 
-    private void setNameAndImage(String mallName, String mallImage) {
-        TextView name = findViewById(R.id.mallName);
-        name.setText(mallName);
-
-        ImageView imageViewMall = findViewById(R.id.mallImageLocal);
-
-        Picasso.with(this)
-                .load(mallImage)
-                .into(imageViewMall);
-    }
-
-
-    private void loadRecyclerViewData(final String id) {
+    private void loadRecyclerViewData(String url) {
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando información...");
         progressDialog.show();
 
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                URL_DATA,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -128,23 +108,27 @@ public class LocalsActivity extends AppCompatActivity  {
 
                             for(int i = 0; i < array.length(); i++) {
                                 JSONObject o = array.getJSONObject(i);
-                                if(id.equals(o.getString("mall"))) {
-                                    ListLocal local = new ListLocal(
-                                            o.getString("pk"),
-                                            o.getString("name"), //"tags"),//"name")
-                                            o.getString("image"),
-                                            //"https://defcrpc6rdpo8.cloudfront.net/madrid/up/2008/02/_vaguada-verde-centrada.jpg",
-                                            o.getString("map_url"),
-                                            o.getString("mall"),
-                                            o.getString("highlighted")
-                                    );
-                                    listLocals.add(local);
-                                }
+                                ListLocal local = new ListLocal(
+                                        o.getString("pk"),
+                                        o.getString("name"), //"tags"),//"name")
+                                        o.getString("image"), //"https://defcrpc6rdpo8.cloudfront.net/madrid/up/2008/02/_vaguada-verde-centrada.jpg",
+                                        o.getString("map_url"),
+                                        o.getString("mall"),
+                                        o.getString("highlighted")
+                                );
+                                listLocals.add(local);
                             }
 
-                            adapter = new MyLocalAdapter(getApplicationContext(), listLocals);
-                            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
-                            recyclerView.setAdapter(adapter);
+                            if(listLocals.isEmpty()) {
+                                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG);
+                                Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+                                startActivityForResult(intent, 0);
+                            } else {
+
+                                adapter = new MySearchLocalAdapter(getApplicationContext(), listLocals);
+                                recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+                                recyclerView.setAdapter(adapter);
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();

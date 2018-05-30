@@ -8,10 +8,10 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context=".ProductsActivity">
+    tools:context=".fragments.TabLocalSearch1">
 
     <TextView
-        android:id="@+id/localName"
+        android:id="@+id/localNameLocalTab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -25,7 +25,7 @@
         android:layout_marginTop="2sp"/>
 
     <ImageView
-        android:id="@+id/localProductImage"
+        android:id="@+id/localProductImageLocalTab"
         android:layout_width="130dp"
         android:layout_height="89dp"
         android:layout_alignParentTop="true"
@@ -33,7 +33,7 @@
         android:layout_marginTop="58dp"/>
 
     <Button
-        android:id="@+id/buttonMap"
+        android:id="@+id/buttonMapLocalTab"
         android:layout_width="119dp"
         android:layout_height="32dp"
         android:layout_alignParentTop="true"
@@ -53,14 +53,14 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="7dp"
         android:layout_marginTop="200dp"
-        android:text="Productos:"
+        android:text="Se encuentra en:"
         android:layout_marginLeft="51dp"
         android:layout_alignParentLeft="true"
         android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
         android:layout_marginRight="@dimen/cardview_compat_inset_shadow" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewProduct"
+        android:id="@+id/recyclerViewLocalTab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="230dp"

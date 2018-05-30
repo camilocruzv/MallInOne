@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/productImage"
             android:layout_width="70dp"
-            android:layout_height="90dp"
+            android:layout_height="70dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/product_icon"/>
@@ -25,12 +25,22 @@
         <TextView
             android:id="@+id/txtNameProduct"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:text="Name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:textColor="#2d2d2d"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="Name"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="#2d2d2d"
+            android:textSize="10sp" />
 
     </LinearLayout>
 

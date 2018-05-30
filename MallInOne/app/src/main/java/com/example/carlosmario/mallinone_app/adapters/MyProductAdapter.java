@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.carlosmario.mallinone_app.LocalsActivity;
 import com.example.carlosmario.mallinone_app.ProductsActivity;
 import com.example.carlosmario.mallinone_app.R;
 import com.example.carlosmario.mallinone_app.models.ListProduct;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,6 +47,11 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.View
         final ListProduct listProduct = listProducts.get(position);
 
         holder.productName.setText(listProduct.getName());
+        holder.price.setText("$" + listProduct.getPrice());
+
+        Picasso.with(context)
+                .load(listProduct.getImage())
+                .into(holder.productImage);
 
         Intent intent = new Intent(context, LocalsActivity.class);
         intent.putExtra("LocalNameProduct", name);
@@ -72,12 +79,16 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.View
 
         public TextView productName;
         //CardView product;
+        ImageView productImage;
+        public TextView price;
 
         public ViewHolderProduct(View itemView) {
             super(itemView);
 
             productName = (TextView) itemView.findViewById(R.id.txtNameProduct);
             //product = (CardView) itemView.findViewById(R.id.product);
+            productImage = (ImageView) itemView.findViewById(R.id.productImage);
+            price = (TextView) itemView.findViewById(R.id.price);
 
             //mall.setOnClickListener(new View.OnClickListener() {
             //@Override

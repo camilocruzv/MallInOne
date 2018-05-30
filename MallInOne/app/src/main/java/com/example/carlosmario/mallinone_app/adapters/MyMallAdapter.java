@@ -54,6 +54,7 @@ public class MyMallAdapter extends RecyclerView.Adapter<MyMallAdapter.ViewHolder
             public void onClick(View v) {
                 //Toast.makeText(context, "You clicked " + listMall.getName() + "" + context, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, LocalsActivity.class);
+                intent.putExtra("MallId", listMall.getId());
                 intent.putExtra("MallName", listMall.getName());
                 intent.putExtra("MallImage", listMall.getimageMall());
                 context.startActivity(intent);

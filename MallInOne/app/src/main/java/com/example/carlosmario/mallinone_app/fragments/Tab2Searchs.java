@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
-import com.example.carlosmario.mallinone_app.LocalsActivity;
 import com.example.carlosmario.mallinone_app.R;
+import com.example.carlosmario.mallinone_app.SearchLocalActivity;
+import com.example.carlosmario.mallinone_app.SearchProductActivity;
 
 public class Tab2Searchs extends Fragment {
 
@@ -41,8 +41,8 @@ public class Tab2Searchs extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 //Toast.makeText(getContext(), query, Toast.LENGTH_LONG);
 
-                Intent intent = new Intent(getContext(), LocalsActivity.class);
-                intent.putExtra("MallName", query);
+                Intent intent = new Intent(getContext(), SearchLocalActivity.class);
+                intent.putExtra("LocalName", query);
                 startActivity(intent);
 
                 return false;
@@ -60,8 +60,8 @@ public class Tab2Searchs extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 //Toast.makeText(getContext(), query, Toast.LENGTH_LONG);
 
-                Intent intent = new Intent(getContext(), LocalsActivity.class);
-                intent.putExtra("MallName", query);
+                Intent intent = new Intent(getContext(), SearchProductActivity.class);
+                intent.putExtra("ProductName", query);
                 startActivity(intent);
 
                 return false;

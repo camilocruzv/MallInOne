@@ -4,33 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="16dp"
-    android:paddingRight="16dp"
-    android:paddingLeft="16dp"
-    android:paddingBottom="16dp"
-    tools:context=".LocalsActivity">
-
-    <TextView
-        android:id="@+id/mallName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="24sp"
-        android:textStyle="normal|bold"
-        android:gravity="center"
-        android:text="Mall Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="2sp"/>
+    android:padding="8dp"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+    tools:context=".SearchLocalActivity">
 
     <ImageView
-        android:id="@+id/mallImageLocal"
-        android:layout_width="130dp"
-        android:layout_height="89dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp"/>
+        android:id="@+id/imageViewMallInOne"
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:src="@drawable/logo_mallinone"
+        tools:ignore="MissingConstraints"
+        android:layout_marginTop="15dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,19 +25,20 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="7dp"
         android:layout_marginTop="171dp"
-        android:text="Locales:"
+        android:text="Resultados búsqueda:"
         android:layout_marginLeft="51dp"
         android:layout_alignParentLeft="true"
         android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
         android:layout_marginRight="@dimen/cardview_compat_inset_shadow" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewLocal"
+        android:id="@+id/recyclerViewSearchLocal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="201dp"
+        android:layout_marginTop="200dp"
         android:clipToPadding="false"
         android:scrollbars="vertical">
+
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

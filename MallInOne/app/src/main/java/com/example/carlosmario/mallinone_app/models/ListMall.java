@@ -2,11 +2,20 @@ package com.example.carlosmario.mallinone_app.models;
 
 public class ListMall {
 
-    private String name, imageMall;
+    private String name, imageMall, id;
 
-    public ListMall(String name, String imageMall) {
+    public ListMall(String id, String name, String imageMall) {
+        this.id = id;
         this.name = name;
         this.imageMall = imageMall;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
